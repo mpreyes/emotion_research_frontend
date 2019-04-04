@@ -1,0 +1,56 @@
+
+
+{% extends './base.html'  %}
+{% load static %}
+
+{% block content %}
+
+    <h2 class="text-center">Prediction</h2>
+    <a href="/detectEmotion/">
+<button type="button" class="btn btn-primary">Home</button>
+</a>
+
+  {% if uploaded_file_url %}
+
+    <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{{ uploaded_file_url }}" class="img-thumbnail"  style="height:50%;" alt="Uploaded Image">
+                </div>
+            </div>
+            
+            <div class="row">
+
+            <div class="col-md-6">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                       Emotions:
+                        </div>
+                        <img class="card-img-top" src="{% static "" %}{{image}}" alt="Predicted emotion">
+                        <div class="card-body">
+                        
+                            <h5 class="card-title">{{vgg16.model}} Predicted: {{ vgg16.emotion }}</h5>
+                            <h5 class="card-title">{{vgg19.model}} Predicted: {{ vgg19.emotion }}</h5>
+                            <h5 class="card-title"> {{resNet.model}} Predicted: {{ resNet.emotion }}</h5>
+                             <h5 class="card-title"> {{conv2D.model}} Predicted: {{ conv2D.emotion }}</h5>
+                        </div>
+                    </div>               
+                </div>
+            </div>
+            
+    
+            
+            
+
+    </div>
+
+
+ {% else %} 
+    <p class="text-center"> Something went wrong with the file upload </p>
+
+
+  {% endif %}
+ 
+
+
+{% endblock %}
