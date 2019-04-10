@@ -21,21 +21,73 @@
             
             <div class="row">
 
-            <div class="col-md-6">
+            <div class="col-md-3 col-lg-3">
                 <div class="card" style="width: 18rem;">
                     <div class="card-header">
-                       Emotions:
+                        Vgg16
                         </div>
-                        <img class="card-img-top" src="{% static "" %}{{image}}" alt="Predicted emotion">
+                      
                         <div class="card-body">
                         
-                            <h5 class="card-title">{{vgg16.model}} Predicted: {{ vgg16.emotion }}</h5>
-                            <h5 class="card-title">{{vgg19.model}} Predicted: {{ vgg19.emotion }}</h5>
-                            <h5 class="card-title"> {{resNet.model}} Predicted: {{ resNet.emotion }}</h5>
-                             <h5 class="card-title"> {{conv2D.model}} Predicted: {{ conv2D.emotion }}</h5>
+                            {% for em, pred in vgg16%}
+                            
+                            <h5 class="card-title">{{em}}: {{pred}}%</h5>
+                            {% endfor %}
+
                         </div>
-                    </div>               
-                </div>
+                    </div> 
+                    </div>
+                        <div class="col-md-3 col-lg-3">
+                     <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        Vgg19
+                        </div>
+                      
+                        <div class="card-body">
+                        
+                            {% for em, pred in vgg19%}
+                            
+                            <h5 class="card-title">{{em}}: {{pred}}%</h5>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    </div>
+                        <div class="col-md-3 col-lg-3">
+                      <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        resNet
+                        </div>
+                      
+                        <div class="card-body">
+                        
+                            {% for em, pred in resNet%}
+                            
+                            <h5 class="card-title">{{em}}: {{pred}}%</h5>
+                            {% endfor %}
+
+                        </div>
+                    </div>   
+                    </div>
+                        <div class="col-md-3 col-lg-3">
+                      <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        OurModel
+                        </div>
+                      
+                        <div class="card-body">
+                        
+                            {% for em, pred in conv2D%}
+                            
+                            <h5 class="card-title">{{em}}: {{pred}}%</h5>
+                            {% endfor %}
+
+                        </div>
+                    </div> 
+                    </div>
+                    
+                    
+        
             </div>
             
     

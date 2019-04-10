@@ -5,10 +5,10 @@ from .emotion_detection import *
 from django.conf import settings
 # Create your views here.
 
-# vgg16Loaded = loadModel("saved_vgg16")
-# vgg19Loaded = loadModel("saved_vgg19")
-# resNetLoaded = loadModel("saved_resNet")
-# conv2DLoaded = loadModel("saved_conv2D")
+vgg16Loaded = loadModel("vgg16_end")
+vgg19Loaded = loadModel("vgg19_end")
+resNetLoaded = loadModel("resNet_end")
+conv2DLoaded = loadModel("conv2D_end")
 
 
         
@@ -23,25 +23,20 @@ def index(request):
         img = "detectEmotion/images/happy.png"
         resizedImage = resizeImage(settings.MEDIA_ROOT + "/" + filename)
         
-                
         
-        vgg16Result = ""
-        vgg19Result = ""
-        resNetResult = ""
-        conv2DResult = ""
         
-        # vgg16Result = predictOnImage(vgg16Loaded,resizedImage)
-        # vgg19Result = predictOnImage(vgg19Loaded,resizedImage)
-        # resNetResult = predictOnImage(resNetLoaded,resizedImage)
-        # conv2DResult = predictOnImage(conv2DLoaded,resizedImage)
+        vgg16Result = predictOnImage(vgg16Loaded,resizedImage)
+        vgg19Result = predictOnImage(vgg19Loaded,resizedImage)
+        resNetResult = predictOnImage(resNetLoaded,resizedImage)
+        conv2DResult = predictOnImage(conv2DLoaded,resizedImage)
+        emotions = ["neutral", "anger","contempt", "disgust","fear","happiness","sadness","surprise"]
+
+        vgg16zip = zip(emotions,vgg16Result)
+        vgg19zip = zip(emotions,vgg19Result)
+        resNetzip = zip(emotions,resNetResult)
+        ourModelzip = zip(emotions,conv2DResult)
         
-    
-        vgg16Obj = {"model":"vgg16", "emotion": vgg16Result, "image": img}
-        vgg19Obj = {"model":"vgg19", "emotion": vgg19Result, "image": img}
-        resnetObj = {"model":"resNet", "emotion": resNetResult, "image": img}
-        conv2DObj = {"model":"conv2D", "emotion": conv2DResult, "image": img}
-        
-        context = {'uploaded_file_url': uploaded_file_url, 'vgg16': vgg16Obj,"vgg19": vgg19Obj, "resNet": resnetObj,"conv2D": conv2DObj}
+        context = {'uploaded_file_url': uploaded_file_url, 'vgg16': vgg16zip,"vgg19": vgg19zip, "resNet": resNetzip,"conv2D": ourModelzip}
         
         return render(request, 'detectEmotion/show_emotion.html',context) 
         
